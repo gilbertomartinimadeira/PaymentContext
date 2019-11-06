@@ -16,6 +16,8 @@ namespace PaymentContext.Domain.Entities
             Email = email;        
             Address = address;
             _subscriptions = new List<Subscription>();
+
+            AddNotifications(name, document, email);
         }
 
         public Name Name {get; private set;}
@@ -33,7 +35,7 @@ namespace PaymentContext.Domain.Entities
       
             // cancela todas as outras e coloca esta como principal
 
-            
+
             foreach(var sub in Subscriptions){
                  sub.Inactivate();            
             }
