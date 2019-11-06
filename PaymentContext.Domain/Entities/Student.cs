@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Flunt.Validations;
 using PaymentContext.Domain.ValueObjects;
 using PaymentContext.Shared.Entities;
 
@@ -32,16 +33,16 @@ namespace PaymentContext.Domain.Entities
 
         public void AddSubscription( Subscription subscription ){
 
-      
-            // cancela todas as outras e coloca esta como principal
+            var hasActiveSuscription = _subscriptions.Any(s => s.Active);
 
+            // AddNotifications(new Contract()
+            // .Requires()
+            // .IsFalse(hasActiveSuscription,"Student.Subscriptions", "Student already has a subscription")
+            // );
 
-            foreach(var sub in Subscriptions){
-                 sub.Inactivate();            
+            if(hasActiveSuscription){
+                AddNotification("Student.Subscriptions", "Student already has a subscription");
             }
-
-            _subscriptions.Add(subscription);
-
         }
 
     }

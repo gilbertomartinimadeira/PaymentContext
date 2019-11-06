@@ -1,9 +1,11 @@
 using System;
+using Flunt.Validations;
 using PaymentContext.Domain.ValueObjects;
+using PaymentContext.Shared.Entities;
 
 namespace PaymentContext.Domain.Entities
 {
-    public abstract class Payment
+    public abstract class Payment : Entity
     {
         protected Payment( DateTime paidDate, 
                            DateTime expireDate, 
@@ -23,6 +25,11 @@ namespace PaymentContext.Domain.Entities
             Document = document;
             Email = email;
             Address = address;
+
+            AddNotifications(new Contract()
+                .Requires()
+                .IsGreaterThan(0, Total, "Payment.Total", "Total can't be 0")
+                );
         }
 
         public string Number { get; private set; }
