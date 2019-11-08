@@ -35,14 +35,15 @@ namespace PaymentContext.Domain.Entities
 
             var hasActiveSuscription = _subscriptions.Any(s => s.Active);
 
-            // AddNotifications(new Contract()
-            // .Requires()
-            // .IsFalse(hasActiveSuscription,"Student.Subscriptions", "Student already has a subscription")
-            // );
+            AddNotifications(new Contract()
+            .Requires()
+            .IsFalse(hasActiveSuscription,"Student.Subscriptions", "Student already has a subscription")
+            .IsTrue(subscription.Payments.Any(),"student.subscription.Payments", "There's no payment for any subscriptions")
+            );
 
-            if(hasActiveSuscription){
-                AddNotification("Student.Subscriptions", "Student already has a subscription");
-            }
+            // if(hasActiveSuscription){
+            //     AddNotification("Student.Subscriptions", "Student already has a subscription");
+            // }
         }
 
     }

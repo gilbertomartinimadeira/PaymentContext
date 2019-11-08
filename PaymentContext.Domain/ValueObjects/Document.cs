@@ -6,7 +6,6 @@ namespace PaymentContext.Domain.ValueObjects
 {
     public class Document: ValueObject
     {
-        public string Number { get; set; }
 
         public Document(string number, EDocumentType type)
         {
@@ -18,6 +17,7 @@ namespace PaymentContext.Domain.ValueObjects
             .IsTrue(Validate(),"Document.Number","Invalid document"));
         }
 
+        public string Number { get; private set; }
         public EDocumentType Type { get; private set; }
 
         private bool Validate(){
